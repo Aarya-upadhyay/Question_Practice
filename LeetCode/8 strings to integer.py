@@ -33,3 +33,39 @@ class Solution:
             return INT_MAX
 
         return num
+class Solution:
+    def myAtoi(self, s: str) -> int:
+        # 1. Ignore leading whitespace
+        s = s.lstrip()
+        if not s:
+            return 0
+        
+        # 2. Determine signedness
+        sign = 1
+        index = 0
+        if s[0] == '-':
+            sign = -1
+            index = 1
+        elif s[0] == '+':
+            index = 1
+            
+        # 3. Conversion
+        res = 0
+        while index < len(s) and s[index].isdigit():
+            # Convert char to int and add to result
+            res = res * 10 + int(s[index])
+            index += 1
+            
+        # Apply the sign
+        res *= sign
+        
+        # 4. Rounding (32-bit signed integer range)
+        # INT_MIN = -2^31, INT_MAX = 2^31 - 1
+        INT_MIN, INT_MAX = -2147483648, 2147483647
+        
+        if res < INT_MIN:
+            return INT_MIN
+        if res > INT_MAX:
+            return INT_MAX
+            
+        return res
