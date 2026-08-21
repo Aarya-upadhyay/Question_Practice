@@ -1,0 +1,35 @@
+import heapq
+n=int(input())
+e=int(input())
+edges=[]
+for i in range(e):
+    edges.append(list(map(int,input().split())))
+
+adj=[[] for _ in range(n)]
+for i in range(e):
+    src=edges[i][0]
+    des=edges[i][1]
+    we=edges[i][2]
+    adj[src].append((des,we))
+    adj[des].append((src,we))
+
+
+heap=[]
+dist=[float('inf')]*n
+src=int(input())
+dist[src]=0
+heapq.heappush(heap,(0,src))
+def dijk(adj,dist,heap):
+    while heap:
+        d,n=heapq.heappop(heap)
+        if d>dist[n]:
+            continue
+        for i in range(len(adj[n])):
+            nei=adj[n][i][0]
+            wei=adj[n][i][1]
+            if wei+d<dist[nei]:
+                dist[nei]=wei+d
+                heapq.heappush(heap,(wei+d,nei))
+    return dist
+print(dijk(adj,dist,heap))
+
