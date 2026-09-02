@@ -14,3 +14,23 @@ def climbing(n,i):
     return ans
 c=climbing(n,0)
 print(c)
+
+ar=[-1]*(n+2)
+def tabulation(n,i):
+    ar[n]=1
+    ar[n+1]=0
+    for i in range(n-1,-1,-1):
+        ar[i]=ar[i+1]+ar[i+2]
+    return ar[0]
+print(tabulation(n,0))
+
+
+def spaceoptimized(n,i):
+    one=1
+    two=0
+    for i in range(n-1,-1,-1):
+        curr=one+two
+        two=one
+        one=curr
+    return curr
+print(spaceoptimized(n,0))
