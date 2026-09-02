@@ -20,3 +20,32 @@ def fun(arr):
 case1=fun(arr[1:])
 case2=fun(arr[:-1])
 print(max(case1,case2))
+
+def tabulation(arr):
+    n=len(arr)
+    dp=[-1]*(n+2)
+    dp[n]=0
+    dp[n+1]=0
+    for i in range(n-1,-1,-1):
+        take=arr[i]+dp[i+2]
+        dont=dp[i+1]
+        dp[i]=max(take,dont)
+    return dp[0]
+a1=tabulation(arr[1:])
+a2=tabulation(arr[:-1])
+print(max(a1,a2))
+
+
+def space(arr):
+    n=len(arr)
+    nxt=0
+    n_nxt=0
+    for i in range(n-1,-1,-1):
+        take=arr[i]+n_nxt
+        dont=nxt
+        n_nxt=nxt
+        nxt=max(dont,take)
+    return nxt
+a1=space(arr[1:])
+a2=space(arr[:-1])
+print(max(a1,a2))
