@@ -51,3 +51,29 @@ def dfs(i,j,grid):
     grid[i][j]=ans
     return ans
 print(dfs(0,0,grid))
+
+def tabulations(m,n):
+    dp=[[0]*n for _ in range(m)]
+    dp[m-1][n-1]=1
+    for i in range(m-1,-1,-1):
+        for j in range(n-1,-1,-1):
+            if i==m-1 and j==n-1:
+                continue
+            d=0
+            r=0
+            if i+1<m:
+                d=dp[i+1][j]
+            if j+1<n:
+                r=dp[i][j+1]
+            dp[i][j]=d+r
+    return dp[0][0]
+print(tabulations(m,n))
+
+
+def space(m,n):
+    dp=[1]*n
+    for i in range(m-2,-1,-1):
+        for j in range(n-2,-1,-1):
+            dp[j]=dp[j]+dp[j+1]
+    return dp[0]
+print(space(m,n))
